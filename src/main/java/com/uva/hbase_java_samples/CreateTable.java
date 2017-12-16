@@ -40,5 +40,9 @@ public class CreateTable
 	      // Execute the table through admin
 	      admin.createTable(tableDescriptor);
 	      System.out.println("Table: employee created");
+	      
+	      // Shutting down HBase
+	      System.out.println("Shutting down HBase");
+	      admin.shutdown();
 	   }
 }

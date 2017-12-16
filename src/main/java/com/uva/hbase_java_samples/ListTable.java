@@ -35,6 +35,5 @@ public class ListTable {
       for (int i=0; i<tableDescriptor.length;i++ ){
          System.out.println(tableDescriptor[i].getNameAsString());
       }
-   
    }
 }
