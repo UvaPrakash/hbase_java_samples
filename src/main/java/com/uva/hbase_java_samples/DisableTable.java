@@ -9,32 +9,32 @@ import java.io.IOException;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.MasterNotRunningException;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
 
-public class ListTable {
+public class DisableTable{
 
-   public static void main(String args[])throws MasterNotRunningException, IOException{
-	  System.out.println("Initializing HBase List Table");
+   public static void main(String args[]) throws MasterNotRunningException, IOException{
+	  System.out.println("Initializing HBase Disable Table");
 
-      // Instantiating a configuration class
+      // Instantiating configuration class
 	  Configuration con = HBaseConfiguration.create();
 	  Connection connection = null;
 	  connection = ConnectionFactory.createConnection(con);
-
+ 
       // Instantiating HBaseAdmin class
 	  HBaseAdmin admin = (HBaseAdmin) connection.getAdmin();
 
-      // Getting all the list of tables using HBaseAdmin object
-      HTableDescriptor[] tableDescriptor = admin.listTables();
+      // Verifying weather the table is disabled
+      Boolean bool = admin.isTableDisabled("employee");
+      System.out.println("Checking whether the table is already disabled: "+ bool);
 
-      // printing all the table names.
-      for (int i=0; i<tableDescriptor.length;i++ ){
-         System.out.println(tableDescriptor[i].getNameAsString());
+      // Disabling the table using HBaseAdmin object
+      if(!bool){
+         admin.disableTable("employee");
+         System.out.println("Table employee disabled");
       }
-   
    }
 }
